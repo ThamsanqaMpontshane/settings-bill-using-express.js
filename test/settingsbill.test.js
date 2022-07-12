@@ -32,7 +32,7 @@ describe('settings-bill', function(){
     });
 
     it('should calculate the right totals', function(){
-        const settingsBill = SettingsBill();
+        const settingsBill = SettingBill();
         settingsBill.setSettings({
             smsCost: 2.35,
             callCost: 3.35,
