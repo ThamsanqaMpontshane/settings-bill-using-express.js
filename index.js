@@ -20,7 +20,8 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.render('index', {
         setting: settingsBill.getSettings(),
-        totals: settingsBill.totals()
+        totals: settingsBill.totals(),
+        color: settingsBill.totalClassName()
     });
 });
 app.post('/settings', function (req, res) {
@@ -38,7 +39,6 @@ app.post('/action', function (req, res) {
     res.redirect('/');
 });
 app.get('/actions', function (req, res) {
-
     res.render('actions',{actions: settingsBill.actions()});
 
 });
