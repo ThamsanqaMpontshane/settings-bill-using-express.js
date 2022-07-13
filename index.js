@@ -50,5 +50,5 @@ const actionType = req.params.actionType;
 let port = process.env.PORT || 3006;
 
 app.listen(port, function () {
-    console.log('listening on port 3006');
+    console.log('listening on port ', port);
 });
