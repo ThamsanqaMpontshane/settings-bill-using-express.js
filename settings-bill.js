@@ -1,3 +1,6 @@
+const moment = require('moment'); // require
+moment().format(); 
+
 module.exports = function SettingsBill() {
 
     let smsCost;
@@ -10,8 +13,8 @@ module.exports = function SettingsBill() {
     function setSettings (settings) {
         smsCost = Number(settings.smsCost);
         callCost = Number(settings.callCost);
-        warningLevel = settings.warningLevel;
-        criticalLevel = settings.criticalLevel;
+        warningLevel = Number(settings.warningLevel);
+        criticalLevel = Number(settings.criticalLevel);
     }
 
     function getSettings
@@ -37,7 +40,7 @@ module.exports = function SettingsBill() {
         actionList.push({
             type: action,
             cost,
-            timestamp: new Date()
+            timestamp: moment(new Date()).fromNow()
         });
     }
 
@@ -75,13 +78,6 @@ module.exports = function SettingsBill() {
             }
         }
         return total;
-
-        // the short way using reduce and arrow functions
-
-        // return actionList.reduce((total, action) => { 
-        //     let val = action.type === type ? action.cost : 0;
-        //     return total + val;
-        // }, 0);
     }
 
     function grandTotal() {
