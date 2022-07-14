@@ -36,16 +36,18 @@ module.exports = function SettingsBill() {
         else if (action === 'call'){
             cost = callCost;
         }
-
+        if(!hasReachedCriticalLevel(cost)){
         actionList.push({
             type: action,
             cost,
             timestamp: moment(new Date()).fromNow()
         });
     }
+    }
 
     function actions(){
         return actionList;
+        
     }
 
     function actionsFor(type){
@@ -109,7 +111,6 @@ module.exports = function SettingsBill() {
     }
 
     function totalClassName(){
-        const total = grandTotal();
         if (hasReachedCriticalLevel()){
             return 'danger';
         }
