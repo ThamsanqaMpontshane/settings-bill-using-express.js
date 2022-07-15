@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const SettingsBill = require('./settings-bill');
+const moment = require('moment'); // require
+moment().format();
+
 
 
 const exphbs = require('express-handlebars');
@@ -32,7 +35,6 @@ app.post('/settings', function (req, res) {
         warningLevel: req.body.warningLevel,
         criticalLevel: req.body.criticalLevel
     });
-    console.log(settingsBill.getSettings());
     res.redirect('/');
 });
 app.post('/action', function (req, res) {
@@ -40,13 +42,27 @@ app.post('/action', function (req, res) {
     res.redirect('/');
 });
 app.get('/actions', function (req, res) {
-    res.render('actions',{actions: settingsBill.actions()});
+    var loop = settingsBill.actions()
+   // console.log(loop);
+
+    for (key of loop) {
+        key.timestamp = moment(key.timestamp).fromNow();
+    }
+    res.render('actions', {
+        actions: loop
+    });
 
 });
 app.get('/actions/:actionType', function (req, res) {
-const actionType = req.params.actionType;
-
-    res.render('actions',{actions: settingsBill.actionsFor(actionType)});
+    const actionType = req.params.actionType;
+    var loop = settingsBill.actionsFor(actionType)
+    console.log(loop);
+    for (key of loop) {
+        key.timestamp = moment(key.timestamp).fromNow();
+    }
+    res.render('actions', {
+        actions: settingsBill.actionsFor(actionType)
+    });
 });
 
 let port = process.env.PORT || 3006;
